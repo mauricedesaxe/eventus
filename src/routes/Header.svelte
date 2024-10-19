@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
 
 	// have to import this to use the modal, w3m-button, etc.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-    import type { AppKit } from '@reown/appkit';
+    import '@reown/appkit';
 </script>
 
 <header class="bg-white dark:bg-gray-800 text-black dark:text-white flex justify-between items-center p-4">
