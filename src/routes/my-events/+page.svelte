@@ -47,11 +47,8 @@
 <div class="px-4 sm:px-6 lg:px-8">
 	<div class="sm:flex sm:items-center">
 		<div class="sm:flex-auto">
-			<h1 class="text-base font-semibold leading-6 text-gray-900">Upcoming Events</h1>
-			<p class="mt-2 text-sm text-gray-700">
-				RSVP to any of the upcoming events below using your wallet (you must connect your wallet to
-				Eventus to RSVP, address read-only).
-			</p>
+			<h1 class="text-base font-semibold leading-6 text-gray-900">My Events</h1>
+			<p class="mt-2 text-sm text-gray-700">View your RSVPed events below.</p>
 		</div>
 	</div>
 	<div class="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
