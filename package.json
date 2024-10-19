@@ -36,6 +36,7 @@
 	"dependencies": {
 		"@reown/appkit": "^1.1.6",
 		"@reown/appkit-adapter-wagmi": "^1.1.6",
+		"@tailwindcss/forms": "^0.5.9",
 		"@wagmi/connectors": "^5.2.2",
 		"@wagmi/core": "^2.13.9",
 		"viem": "^2.21.29",
