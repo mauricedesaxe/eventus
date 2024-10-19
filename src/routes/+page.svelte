@@ -53,6 +53,13 @@
 				Eventus to RSVP, address read-only).
 			</p>
 		</div>
+		<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+			<a
+				href="/add-event"
+				class="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+				>Add event</a
+			>
+		</div>
 	</div>
 	<div class="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
 		<table class="min-w-full divide-y divide-gray-300">
