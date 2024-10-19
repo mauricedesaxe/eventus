@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { modal } from '../reown';
 
 	// have to import this to use the modal, w3m-button, etc.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,7 +28,13 @@
 		</ul>
 	</nav>
 
-	<div class="flex items-center">
+	<div class="flex items-center gap-4">
+		<button
+			on:click={() => console.log(modal.getAddress())}
+			class="bg-blue-500 text-white px-4 py-2 rounded-md"
+		>
+			Log Address
+		</button>
 		<w3m-button></w3m-button>
 	</div>
 </header>
