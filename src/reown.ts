@@ -6,7 +6,7 @@ const projectId = 'f980d1e8ac5f60d237a134a726ee17cd';
 
 export const networks = [mainnet];
 
-const wagmiAdapter = new WagmiAdapter({
+export const wagmiAdapter = new WagmiAdapter({
 	projectId,
 	networks
 });
