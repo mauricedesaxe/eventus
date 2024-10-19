@@ -1,5 +1,5 @@
 import { signMessage } from '@wagmi/core';
-import { modal, wagmiAdapter } from '../reown';
+import { modal, wagmiAdapter } from './reown';
 
 export async function handleSignMessage(message: string) {
 	try {
