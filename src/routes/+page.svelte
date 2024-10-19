@@ -40,8 +40,8 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="summary" content="Svelte demo app" />
+	<title>Eventus - RSVP to Events</title>
+	<meta name="summary" content="RSVP to Events" />
 </svelte:head>
 
 <main class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-10">
