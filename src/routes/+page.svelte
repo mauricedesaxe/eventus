@@ -7,26 +7,12 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>
-	<button on:click={() => console.log(modal.getAddress())}>Log Address</button>
+<section class="flex flex-col items-center justify-center h-screen">
+	<button
+		on:click={() => console.log(modal.getAddress())}
+		class="bg-blue-500 text-white px-4 py-2 rounded-md"
+	>
+		Log Address
+	</button>
 </section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	button {
-		padding: 1rem;
-		background-color: #1a1a1a;
-		color: white;
-		border: none;
-		border-radius: 0.5rem;
-		cursor: pointer;
-	}
-</style>
 
