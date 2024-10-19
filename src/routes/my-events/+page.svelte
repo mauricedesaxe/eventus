@@ -40,8 +40,8 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="summary" content="Svelte demo app" />
+	<title>Eventus - My Events</title>
+	<meta name="summary" content="My Events" />
 </svelte:head>
 
 <main class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-10">
