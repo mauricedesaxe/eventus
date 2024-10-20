@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { modal } from '../reown';
+	import { modal } from '../lib/reown';
 
 	// have to import this to use the modal, w3m-button, etc.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
