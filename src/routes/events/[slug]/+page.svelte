@@ -1,4 +1,6 @@
 <script>
+	import { handleRSVP } from '$lib/rsvp';
+
 	const event = {
 		slug: 'secureum-istanbul-2024',
 		name: 'Secureum Istanbul',
@@ -94,6 +96,7 @@
 				<div class="mt-6 flex items-center justify-start gap-x-6">
 					<button
 						type="button"
+						on:click={() => handleRSVP(event.slug)}
 						class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
 					>
 						RSVP to {event.name}
