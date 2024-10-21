@@ -14,5 +14,5 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 
 	const event = events[0] as Event;
-	return { event };
+	return { event, slug: params.slug };
 };
