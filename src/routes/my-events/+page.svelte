@@ -6,7 +6,7 @@
 	let loading = true;
 	let error: string | null = null;
 
-	async function fetchEvents() {
+	async function fetchMyEvents() {
 		const address = modal.getAddress();
 		if (!address) {
 			error = 'No wallet connected. Please connect your wallet to view your events.';
@@ -17,7 +17,7 @@
 		try {
 			loading = true;
 			error = null;
-			const response = await fetch(`/api/my-events?address=${address}`);
+			const response = await fetch(`/api/events?address=${address}`);
 			if (!response.ok) {
 				throw new Error('Failed to fetch events');
 			}
@@ -32,13 +32,20 @@
 		}
 	}
 
+	async function refreshEvents() {
+		events = await fetchMyEvents();
+	}
+
 	onMount(async () => {
-		events = await fetchEvents();
+		events = await fetchMyEvents();
 	});
 
-	async function refreshEvents() {
-		events = await fetchEvents();
-	}
+	// kind of a hacky work around, but every time the modal is interacted with
+	// there's a good chance the user has connected their wallet
+	// so we can retry fetching the events
+	modal.subscribeState((state) => {
+		refreshEvents();
+	});
 </script>
 
 <svelte:head>
@@ -52,14 +59,6 @@
 			<div class="sm:flex-auto">
 				<h1 class="text-base font-semibold leading-6 text-gray-900">My Events</h1>
 				<p class="mt-2 text-sm text-gray-700">View your RSVPed events below.</p>
-			</div>
-			<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-				<button
-					class="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-					on:click={refreshEvents}
-				>
-					Refresh
-				</button>
 			</div>
 		</div>
 		{#if loading}

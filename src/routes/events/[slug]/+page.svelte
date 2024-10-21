@@ -1,14 +1,54 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { handleRSVP } from '$lib/rsvp';
+	import { modal } from '$lib/reown';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { event } = data;
+	const { slug } = data;
+	let { event } = data;
+
+	let isRSVPed = false;
+	let loading = true;
+	let error: string | null = null;
+
+	async function fetchIsRSVPed(slug: string) {
+		const address = modal.getAddress();
+		if (!address) {
+			error = 'No wallet connected. Please connect your wallet to view whether you are RSVPed.';
+			loading = false;
+			return null;
+		}
+
+		try {
+			loading = true;
+			error = null;
+			const response = await fetch(`/api/events/${slug}?address=${address}`);
+			if (!response.ok) {
+				throw new Error('Failed to fetch RSVP status');
+			}
+			const eventData = await response.json();
+			isRSVPed = eventData.event.length > 0;
+		} catch (err) {
+			console.error('Error fetching RSVP status:', err);
+			error = 'Failed to load RSVP status. Please try again later.';
+		} finally {
+			loading = false;
+		}
+	}
+
+	onMount(async () => {
+		await fetchIsRSVPed(slug);
+	});
+
+	modal.subscribeState((_state) => {
+		fetchIsRSVPed(slug);
+	});
 </script>
 
 <svelte:head>
-	<title>{event.name}</title>
-	<meta name="summary" content={event.summary} />
+	<title>{event?.name}</title>
+	<meta name="summary" content={event?.summary} />
 </svelte:head>
 
 <div
@@ -87,14 +127,36 @@
 					{event.description}
 				</div>
 				<div class="mt-6 flex items-center justify-start gap-x-6">
-					<button
-						type="button"
-						on:click={() => handleRSVP(event.slug)}
-						class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-					>
-						RSVP to {event.name}
-					</button>
+					{#if isRSVPed}
+						<button
+							type="button"
+							class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:bg-gray-400"
+							disabled
+						>
+							You are RSVPed to this event.
+						</button>
+					{:else}
+						<button
+							type="button"
+							on:click={async () => {
+								await handleRSVP(event.slug);
+								await fetchIsRSVPed(slug);
+							}}
+							class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+						>
+							{#if loading}
+								Loading...
+							{:else}
+								RSVP to {event.name}
+							{/if}
+						</button>
+					{/if}
 				</div>
+				{#if error}
+					<div class="mt-4 text-red-600">
+						<p>{error}</p>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
