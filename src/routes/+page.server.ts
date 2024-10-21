@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit';
 import sql from '../server/db';
 import type { PageServerLoad } from './$types';
 import type { Event } from '$lib/types';
@@ -10,10 +9,14 @@ export const load: PageServerLoad = async () => {
         ORDER BY date ASC
     `;
 	if (!events) {
-		throw error(500, 'Failed to fetch events');
+		return {
+			error: 'Failed to fetch events'
+		};
 	}
 	if (events.length === 0) {
-		throw error(404, 'No events found');
+		return {
+			error: 'No events found'
+		};
 	}
 
 	return {
