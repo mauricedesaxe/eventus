@@ -26,6 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			VALUES (${address}, ${hashedNonce}, ${expiresAt})
 			ON CONFLICT (address) DO UPDATE
 			SET nonce = ${hashedNonce}, expires_at = ${expiresAt}
+            RETURNING *
 		`;
 		if (result.length === 0) {
 			return json({ error: 'Failed to generate challenge' }, { status: 500 });
