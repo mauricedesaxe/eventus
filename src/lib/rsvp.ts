@@ -22,9 +22,12 @@ export async function handleRSVP(eventSlug: string) {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ address })
 		});
-		const { challenge } = (await challengeRes.json()) as { challenge: string };
+		const { challenge, error } = (await challengeRes.json()) as {
+			challenge: string;
+			error?: string;
+		};
 		if (!challenge) {
-			throw new Error('Failed to get challenge');
+			throw new Error(error || 'Failed to get challenge');
 		}
 
 		const message = `I am signing my address to confirm my RSVP to ${eventSlug}: ${challenge}`;
