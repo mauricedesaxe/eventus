@@ -1,24 +1,46 @@
-# Eventus - RSVP for Crypto Events
+# Eventus: RSVP for Crypto Events
 
-This is a simple RSVP app for crypto events. It's built with SvelteKit.
-I won't go into how to set it up, figure it out.
+Eventus is a SvelteKit-based web app for crypto event RSVPs. It's simple: create events, view details, and RSVP securely with your crypto wallet.
 
-What I will use this README for is to document issues for myself.
+## Architecture Breakdown
 
-- [x] Make UI for adding events
-- [x] Add page with event details
-- [ ] Integrate backend with db to add, read and RSVP to events
-- [ ] Consider security of address auth (how will the backend know the address is actually connected, somebody could spam the API, no?)
+1. **Frontend**: SvelteKit
+2. **Backend**: SvelteKit server-side API
+3. **Database**: PostgreSQL
+4. **Rate Limiting**: Redis
+5. **Wallet Integration**: Reown AppKit
 
-## Proving the user owns the address with a challenge-response system
+## Core Features
 
-1. When a user wants to RSVP, the frontend requests a unique challenge (e.g. a nonce) from the backend
-2. The backend stores the challenge alongside the user address in the db and returns the challenge to the frontend
-3. The frontend asks the user to sign the challenge with their wallet & sends the signed message to the backend
-4. The backend verifies the signature against the stored challenge and updates the user's RSVP status in the db
-5. If the signature is valid, the user is added to the event's RSVP list
+- Event creation and listing
+- Secure RSVP using wallet signatures
+- Rate limiting to prevent API abuse
 
-Other considerations:
-- nonce should have a short expiration time
-- nonce should be one time use
-- challenge requests should be rate limited
+## Challenge-Response-Signature System
+
+We use a challenge-response-signature system to verify wallet ownership and secure the RSVP process. Here's how it works:
+
+1. User initiates RSVP -> Frontend requests challenge from backend
+2. Backend generates a nonce (challenge), encrypts it, and stores it with user's address and expiration
+3. Frontend prompts user to sign the challenge with their wallet
+4. Signed message goes to backend for verification
+5. If valid, RSVP is recorded in the database
+
+### Security Considerations
+
+- Short-lived nonces (5 minutes)
+- One-time use challenges
+- Encrypted challenge storage
+- Rate limiting
+
+## Getting Started
+
+It's a standard SvelteKit app. Just set the right env vars and you're good to go.
+
+## Contributing
+
+Issues and PRs are welcome.
+
+## License
+
+[MIT](LICENSE) - Do what you want with it.

@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import sql from '../../server/db';
+import sql from '$lib/server/db';
 
 /**
  * Create a slug from a string. Use this to create a slug from the event name.

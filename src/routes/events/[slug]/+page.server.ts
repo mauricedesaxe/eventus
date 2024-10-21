@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import sql from '../../../server/db';
+import sql from '$lib/server/db';
 import type { Event } from '$lib/types';
 
 export const load: PageServerLoad = async ({ params }) => {
