@@ -1,14 +1,9 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import client from '../../../server/redis';
 import sql from '../../../server/db';
 import { verifyMessage } from 'viem';
 import { createHash } from 'crypto';
-
-const MINUTE = 60 * 1000;
-
-const MAX_REQUESTS = 5;
-const WINDOW_MS = 60 * MINUTE;
+import { isRateLimited } from '../../../server/limit';
 
 export const POST: RequestHandler = async ({ request }) => {
 	const { address, eventSlug, signature, challenge } = await request.json();
@@ -16,17 +11,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		return json({ error: 'Missing required fields' }, { status: 400 });
 	}
 
-	const ip =
-		request.headers.get('x-forwarded-for') ||
-		request.headers.get('cf-connecting-ip') ||
-		address ||
-		'';
-	const key = `ratelimit:${ip}`;
-	const requests = await client.incr(key);
-	if (requests === 1) {
-		await client.pExpire(key, WINDOW_MS);
-	}
-	if (requests > MAX_REQUESTS) {
+	if (await isRateLimited({ request, address })) {
 		return json({ error: 'Too many requests' }, { status: 429 });
 	}
 
