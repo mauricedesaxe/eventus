@@ -21,4 +21,15 @@ await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_address ON rsvps (address)`;
 await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_event_slug ON rsvps (event_slug)`;
 await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_address_event_slug ON rsvps (address, event_slug)`;
 
+await sql`CREATE TABLE IF NOT EXISTS events (
+	slug TEXT PRIMARY KEY,
+	name TEXT NOT NULL,
+	date TIMESTAMP NOT NULL,
+	summary TEXT NOT NULL,
+	description TEXT NOT NULL,
+	image TEXT NOT NULL
+)`;
+await sql`CREATE INDEX IF NOT EXISTS idx_events_slug ON events (slug)`;
+await sql`CREATE INDEX IF NOT EXISTS idx_events_date ON events (date)`;
+
 export default sql;
