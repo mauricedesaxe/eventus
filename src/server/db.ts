@@ -6,7 +6,9 @@ const sql = postgres(DATABASE_URL);
 await sql`CREATE TABLE IF NOT EXISTS challenges (
 	address TEXT PRIMARY KEY,
 	nonce TEXT NOT NULL,
-	expires_at TIMESTAMP NOT NULL
+	expires_at TIMESTAMP NOT NULL,
+	CONSTRAINT unique_address UNIQUE (address),
+	CONSTRAINT expires_at_check CHECK (expires_at > NOW())
 )`;
 
 await sql`CREATE INDEX IF NOT EXISTS idx_challenges_address ON challenges (address)`;
