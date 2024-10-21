@@ -1,17 +1,11 @@
 import { error } from '@sveltejs/kit';
 import sql from '../server/db';
 import type { PageServerLoad } from './$types';
-
-type Event = {
-	slug: string;
-	name: string;
-	date: string;
-	summary: string;
-};
+import type { Event } from '$lib/types';
 
 export const load: PageServerLoad = async () => {
 	const events = await sql`
-        SELECT slug, name, date, summary
+        SELECT slug, name, date, summary, description, image
         FROM events
         ORDER BY date ASC
     `;

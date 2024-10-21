@@ -1,15 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import sql from '../../../server/db';
-
-export interface Event {
-	slug: string;
-	name: string;
-	date: string;
-	summary: string;
-	description: string;
-	image: string;
-}
+import type { Event } from '$lib/types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const events = await sql`
