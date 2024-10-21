@@ -1,16 +1,9 @@
-<script>
+<script lang="ts">
 	import { handleRSVP } from '$lib/rsvp';
+	import type { PageData } from './$types';
 
-	const event = {
-		slug: 'secureum-istanbul-2024',
-		name: 'Secureum Istanbul',
-		date: '2024-11-03',
-		summary: 'Secureum Istanbul is a conference about blockchain security.',
-		description:
-			"Secureum Istanbul is a premier conference focused on blockchain security, bringing together experts, researchers, and practitioners from around the world. This event offers a unique opportunity to delve deep into the latest advancements, challenges, and best practices in securing blockchain technologies. Attendees can expect a rich program featuring keynote speeches from industry leaders, hands-on workshops, panel discussions, and networking sessions. Topics covered will include smart contract auditing, DeFi security, cryptographic protocols, and emerging threats in the blockchain space. Whether you're a seasoned security professional, a blockchain developer, or a curious enthusiast, Secureum Istanbul promises to provide valuable insights and foster collaboration in the ever-evolving field of blockchain security.",
-		image: 'https://tailwindui.com/plus/img/component-images/dark-project-app-screenshot.png',
-		isRSVPed: true
-	};
+	export let data: PageData;
+	const { event } = data;
 </script>
 
 <svelte:head>

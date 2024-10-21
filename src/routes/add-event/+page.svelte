@@ -1,15 +1,24 @@
+<script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
+
+	export let form: ActionData;
+</script>
+
 <svelte:head>
 	<title>Eventus - Add Event</title>
 	<meta name="summary" content="Add Event" />
 </svelte:head>
 
 <main class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-10">
-	<form>
+	<form method="POST" use:enhance>
 		<div class="space-y-12">
 			<div class="border-b border-gray-900/10 pb-12">
 				<h2 class="text-base font-semibold leading-7 text-gray-900">New event</h2>
 				<p class="mt-1 text-sm leading-6 text-gray-600">
-					Because this is a proof of concept, anyone can add an event.
+					Because this is a proof of concept and for the sake of simplicity & time, anyone can add
+					an event. In a real world scenario, we could use the same mechanism that we use to verify
+					RSVPs to verify that the event creator is who they say they are.
 				</p>
 
 				<div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -18,18 +27,13 @@
 							>Event name</label
 						>
 						<div class="mt-2">
-							<div
-								class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
-							>
-								<input
-									type="text"
-									name="event_name"
-									id="event-name"
-									class="block flex-1 border-0 bg-transparent p-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-									placeholder="ETH Amsterdam"
-									required
-								/>
-							</div>
+							<input
+								type="text"
+								name="name"
+								id="event-name"
+								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								required
+							/>
 						</div>
 					</div>
 
@@ -40,9 +44,9 @@
 						<div class="mt-2">
 							<input
 								type="date"
-								name="event_date"
+								name="date"
 								id="event-date"
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								required
 							/>
 						</div>
@@ -79,44 +83,23 @@
 							></textarea>
 						</div>
 						<p class="mt-3 text-sm leading-6 text-gray-600">
-							Write a longer description about the event. This will be displayed on the event page
-							so be descriptive.
+							Write a longer description about the event. This will be displayed on the event page.
 						</p>
 					</div>
 
 					<div class="col-span-full">
-						<label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900"
-							>Cover photo</label
+						<label for="image" class="block text-sm font-medium leading-6 text-gray-900"
+							>Cover photo URL</label
 						>
-						<div
-							class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
-						>
-							<div class="text-center">
-								<svg
-									class="mx-auto h-12 w-12 text-gray-300"
-									viewBox="0 0 24 24"
-									fill="currentColor"
-									aria-hidden="true"
-									data-slot="icon"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-								<div class="mt-4 flex text-sm leading-6 text-gray-600">
-									<label
-										for="file-upload"
-										class="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
-									>
-										<span>Upload a file</span>
-										<input id="file-upload" name="file-upload" type="file" class="sr-only" />
-									</label>
-									<p class="pl-1">or drag and drop</p>
-								</div>
-								<p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-							</div>
+						<div class="mt-2">
+							<input
+								type="url"
+								name="image"
+								id="image"
+								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								placeholder="https://example.com/image.jpg"
+								required
+							/>
 						</div>
 					</div>
 				</div>
@@ -132,4 +115,10 @@
 			>
 		</div>
 	</form>
+
+	{#if form?.error}
+		<div class="bg-red-50 p-4 rounded-md mt-4">
+			<p class="text-red-500">{form.error}</p>
+		</div>
+	{/if}
 </main>
