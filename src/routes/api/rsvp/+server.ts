@@ -4,6 +4,7 @@ import sql from '../../../server/db';
 import { verifyMessage } from 'viem';
 import { createHash } from 'crypto';
 import { isRateLimited } from '../../../server/limit';
+import { getRSVPMessage } from '$lib/rsvp';
 
 export const POST: RequestHandler = async ({ request }) => {
 	const { address, eventSlug, signature, challenge } = await request.json();
@@ -29,7 +30,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		return json({ error: 'Invalid challenge' }, { status: 400 });
 	}
 
-	const message = `I am signing my address to confirm my RSVP to ${eventSlug}: ${challenge}`;
+	const message = getRSVPMessage(eventSlug, challenge);
 	const isValid = await verifyMessage({
 		address: address as `0x${string}`,
 		message,

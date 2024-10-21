@@ -2,6 +2,16 @@ import { signMessage } from '@wagmi/core';
 import { modal, wagmiAdapter } from './reown';
 
 /**
+ * Returns the message to sign for the RSVP process.
+ * @param eventSlug - The slug of the event to RSVP to.
+ * @param challenge - The challenge to sign.
+ * @returns The message to sign.
+ */
+export function getRSVPMessage(eventSlug: string, challenge: string) {
+	return `I am signing my address to confirm my RSVP to ${eventSlug}: ${challenge}`;
+}
+
+/**
  * Handles the RSVP process for an event.
  * @param eventSlug - The slug of the event to RSVP to.
  * @returns True if the RSVP was successful, false otherwise.
@@ -30,7 +40,7 @@ export async function handleRSVP(eventSlug: string) {
 			throw new Error(error || 'Failed to get challenge');
 		}
 
-		const message = `I am signing my address to confirm my RSVP to ${eventSlug}: ${challenge}`;
+		const message = getRSVPMessage(eventSlug, challenge);
 		const signature = await signMessage(wagmiAdapter.wagmiConfig, { message });
 
 		const rsvpRes = await fetch(`/api/rsvp`, {
