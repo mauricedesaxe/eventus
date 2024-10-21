@@ -6,7 +6,7 @@
 	let loading = true;
 	let error: string | null = null;
 
-	async function fetchEvents() {
+	async function fetchMyEvents() {
 		const address = modal.getAddress();
 		if (!address) {
 			error = 'No wallet connected. Please connect your wallet to view your events.';
@@ -33,11 +33,11 @@
 	}
 
 	onMount(async () => {
-		events = await fetchEvents();
+		events = await fetchMyEvents();
 	});
 
 	async function refreshEvents() {
-		events = await fetchEvents();
+		events = await fetchMyEvents();
 	}
 </script>
 
