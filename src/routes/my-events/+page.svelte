@@ -17,7 +17,7 @@
 		try {
 			loading = true;
 			error = null;
-			const response = await fetch(`/api/my-events?address=${address}`);
+			const response = await fetch(`/api/events?address=${address}`);
 			if (!response.ok) {
 				throw new Error('Failed to fetch events');
 			}
