@@ -1,9 +1,9 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import sql from '../../../server/db';
+import sql from '$lib/server/db';
 import { verifyMessage } from 'viem';
 import { createHash } from 'crypto';
-import { isRateLimited } from '../../../server/limit';
+import { isRateLimited } from '$lib/server/limit';
 import { getRSVPMessage } from '$lib/rsvp';
 
 export const POST: RequestHandler = async ({ request }) => {

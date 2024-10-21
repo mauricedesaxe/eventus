@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import sql from '../../../server/db';
+import sql from '$lib/server/db';
 
 /**
  * GET /api/events

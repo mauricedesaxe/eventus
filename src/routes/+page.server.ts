@@ -1,4 +1,4 @@
-import sql from '../server/db';
+import sql from '$lib/server/db';
 import type { PageServerLoad } from './$types';
 import type { Event } from '$lib/types';
 
